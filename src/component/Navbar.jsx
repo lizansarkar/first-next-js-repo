@@ -11,7 +11,8 @@ export default function Navbar() {
             <Link href="/about">About</Link>
             <Link href="/login">Login</Link>
             <Link href="/register">Register</Link>
-            <Link href="/about">tutorials</Link>
+            <Link href="/stories">Stories</Link>
+            <Link href="/about">Tutorials</Link>
         </nav>
       </header>
     </div>
