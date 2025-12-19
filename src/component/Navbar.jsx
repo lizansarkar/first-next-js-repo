@@ -1,10 +1,18 @@
+import Link from "next/link";
 import React from "react";
 
 export default function Navbar() {
   return (
     <div>
-      <header className="p-5">
-        <h1 className="text-lg font-semibold">dev story</h1>
+      <header className="p-5 flex justify-between items-center">
+        <Link href='/' className="text-lg font-semibold">dev story</Link>
+
+        <nav className="space-x-5">
+            <Link href="/about">About</Link>
+            <Link href="/login">Login</Link>
+            <Link href="/register">Register</Link>
+            <Link href="/about">tutorials</Link>
+        </nav>
       </header>
     </div>
   );
