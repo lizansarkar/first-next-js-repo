@@ -1,6 +1,8 @@
 import Title from "@/component/Title";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { resolve } from "styled-jsx/css";
 
 const getFoods = async () => {
   try {
@@ -15,8 +17,9 @@ const getFoods = async () => {
       throw new Error("Failed to fetch data");
     }
 
-    const data = await res.json(); // <--- Ekhane 'await' add kora hoyeche
-    return data.data || data.foods || []; // API structure onujayi data handle
+    const data = await res.json();
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+    return data.data || data.foods || [];
   } catch (error) {
     console.error("Error fetching foods:", error);
     return [];
@@ -48,37 +51,51 @@ export default async function FoodsPage() {
           foods.map((food, index) => (
             <div
               key={index}
-              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+              className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col"
             >
-              {/* Image Placeholder - API te image thakle src={} e hobe */}
+              {/* Image Section */}
               <div className="relative h-48 bg-gray-200 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                 <img
                   src={
-                    food.image ||
+                    food.foodImg ||
                     "https://via.placeholder.com/400x300?text=No+Image"
                   }
-                  alt={food.name}
+                  alt={food.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                {/* Category Badge */}
+                <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-xs font-bold px-2 py-1 rounded-lg shadow-sm z-20 capitalize">
+                  {food.category || "cooked"}
+                </span>
               </div>
 
-              <div className="p-5">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-gray-800 leading-tight capitalize">
+              <div className="p-5 flex flex-col flex-grow">
+                {/* Title & Price */}
+                <div className="flex justify-between items-start mb-4">
+                  <h3 className="text-lg font-bold text-gray-800 leading-tight capitalize min-h-[3rem] line-clamp-2">
                     {food.title || "Delicious Food"}
                   </h3>
-                  <span className="text-green-600 font-bold">
+                  <span className="text-green-600 font-bold text-lg">
                     ${food.price || "12.00"}
                   </span>
                 </div>
-                <p className="text-gray-600 text-sm line-clamp-2 mb-4">
-                  {food.category ||
-                    "cooked"}
-                </p>
-                <button className="w-full py-2.5 bg-gray-900 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors active:scale-95 transition-transform">
-                  Order Now
-                </button>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 mt-auto">
+                  {/* View Details Button */}
+                  <Link
+                    href={`/foods/${food.id || index}`}
+                    className="flex-1 text-center py-2.5 border border-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors active:scale-95"
+                  >
+                    View Details
+                  </Link>
+
+                  {/* Order Now Button */}
+                  <button className="flex-[1.5] py-2.5 bg-gray-900 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors active:scale-95 shadow-md shadow-gray-200 cursor-pointer">
+                    Order Now
+                  </button>
+                </div>
               </div>
             </div>
           ))
