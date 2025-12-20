@@ -21,11 +21,21 @@ export default function Navbar() {
             href="/"
             className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity"
           >
-            dev story
+            <img src="/logo.png" className="h-20 w-32"></img>
           </Link>
 
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center space-x-8">
+            <NavLink
+              href="/foods"
+              className={
+                pathName === "/about"
+                  ? "text-blue-600 font-medium"
+                  : "text-gray-600 hover:text-blue-500 transition-colors"
+              }
+            >
+              Foods
+            </NavLink>
             <NavLink
               href="/about"
               className={
@@ -55,6 +65,16 @@ export default function Navbar() {
               }
             >
               Tutorials
+            </NavLink>
+            <NavLink
+              href="/reviews"
+              className={
+                pathName === "/tutorials"
+                  ? "text-blue-600 font-medium"
+                  : "text-gray-600 hover:text-blue-500 transition-colors"
+              }
+            >
+              Reviews
             </NavLink>
           </nav>
 
