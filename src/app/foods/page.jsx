@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { resolve } from "styled-jsx/css";
+import CartButton from "@/component/buttons/CartButton";
 
 const getFoods = async () => {
   try {
@@ -92,9 +93,7 @@ export default async function FoodsPage() {
                   </Link>
 
                   {/* Order Now Button */}
-                  <button className="flex-[1.5] py-2.5 bg-gray-900 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors active:scale-95 shadow-md shadow-gray-200 cursor-pointer">
-                    Order Now
-                  </button>
+                  <CartButton></CartButton>
                 </div>
               </div>
             </div>
